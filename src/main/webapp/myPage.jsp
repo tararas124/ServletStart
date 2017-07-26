@@ -9,37 +9,45 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap-theme.css"/>
     <title>Title</title>
 </head>
 <body>
-<jsp:include page="menu.jsp"></jsp:include>
+<jsp:include page="mainMenu.jsp"></jsp:include>
 <br><br>
-<h3>HELLO ${user.name}</h3>
-<br/>
-User Name: <b>${user.name}</b><br/>
-User Age: <b>${user.age}</b><br/>
-User Address: <b>${user.address}</b><br/><br/><br/>
+<div class="container">
+    <h2>HELLO <b>${user.name}</b></h2>
+    <br/>
+    <h4><small>User Name: </small> <b>${user.name}</b></h4><br/>
+    <h4><small>User Age: </small> <b>${user.age}</b></h4><br/>
+    <h4><small>User Address: </small> <b>${user.address}</b></h4><br/><br/><br/>
 
-<table border="1" cellpadding="5" cellspacing="1" >
-    <tr>
-        <th>Text</th>
-        <th>State</th>
-        <th>Delete</th>
-    </tr>
-
-    <c:forEach items="${itemList}" var="item" >
+    <table class="table table-bordered">
+        <thead>
         <tr>
-            <td>${item.text}</td>
-            <td>${item.state}</td>
-            <td>
-                <a methods="post" href="deleteItem?itemId=${item.itemID}">Delete</a>
-            </td>
+            <th>Text</th>
+            <th>State</th>
+            <th>Delete</th>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
 
-<form action="/createItem" method="post">
-    <input type="submit" value="Create Item"/>
-</form>
+        <tbody>
+        <c:forEach items="${itemList}" var="item">
+            <tr>
+                <td>${item.text}</td>
+                <td>${item.state}</td>
+                <td>
+                    <a methods="post" class="btn btn-default" href="deleteItem?itemId=${item.itemID}">Delete</a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+    <form action="/createItem" method="post">
+        <button type="submit" class="btn btn-danger">Create Item</button>
+    </form>
+</div>
 </body>
 </html>

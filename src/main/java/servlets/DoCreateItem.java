@@ -23,41 +23,29 @@ public class DoCreateItem extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = null;
         Item item = null;
-        boolean error = false;
-        String errorMsg = null;
         int state = 0;
 
         String text = req.getParameter("text");
+
         try {
             state = Integer.parseInt(req.getParameter("state"));
         } catch (Exception e) {
             e.printStackTrace();
-            error = true;
-            errorMsg = "Please put int to field state";
+            resp.sendError(400);
+            return;
         }
-        if (text == null || error) {
-            error = true;
-            errorMsg = "Data is incorrect";
-        }
-
-        if (!error) {
-            HttpSession session = req.getSession();
-            user = LogginedUser.getLoginedUser(session);
-
-            item = new Item(text, state, user.getUserID());
-            UserDAO.INSTANCE.insertItem(item);
-
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/myPage");
-            dispatcher.forward(req, resp);
-
+        if (text == null) {
+            resp.sendError(400);
         }
 
-        req.setAttribute("errorString", errorMsg);
-        resp.reset();
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/createItem");
+        HttpSession session = req.getSession();
+        user = LogginedUser.getLoginedUser(session);
+
+        item = new Item(text, state, user.getUserID());
+        UserDAO.INSTANCE.insertItem(item);
+
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/myPage");
         dispatcher.forward(req, resp);
-
-
     }
 
     @Override

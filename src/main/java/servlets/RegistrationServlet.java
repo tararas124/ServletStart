@@ -11,17 +11,15 @@ import java.io.PrintWriter;
 
 @WebServlet("/regist")
 public class RegistrationServlet extends HttpServlet {
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/registration.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/registration.jsp");
         dispatcher.forward(req, resp);
 
+    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }

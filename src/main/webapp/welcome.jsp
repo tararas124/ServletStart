@@ -10,17 +10,22 @@
 <html>
 <head>
     <title>Home Page</title>
-    <link href="${pageContext.request.contextPath}/style/main.css" rel="stylesheet" type="text/css"/>
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap-theme.css"/>
 </head>
 <body>
-<jsp:include page="menu.jsp"></jsp:include>
+<jsp:include page="mainMenu.jsp"></jsp:include>
+<%--<jsp:include page="menu.jsp"></jsp:include>--%>
 <br>
-<div class="try">
-<h1>Hello ${logginedUser.name}</h1>
-</div>
-<h3>Home page</h3>
 
-This is simple web application.
+<div class="container">
+
+    <h1>Hello <b>${logginedUser.name}</b></h1>
+
+    <h3>Home page</h3>
+
+    <p>This is simple web application.</p>
+</div>
 </body>
 </html>
 

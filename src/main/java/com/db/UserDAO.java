@@ -56,7 +56,7 @@ public enum UserDAO {
 
             ResultSet rs = pstm.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 User user = new User();
                 user.setName(userName);
                 user.setAge(rs.getInt("age"));
@@ -73,7 +73,7 @@ public enum UserDAO {
     public List<Item> getItems(int userID) {
         String sql = "SELECT a.itemID, a.text, a.state FROM item a where userID = ?";
 
-        List<Item> list = new ArrayList<Item>();;
+        List<Item> list = new ArrayList<>();
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement(sql);
@@ -118,11 +118,10 @@ public enum UserDAO {
 
             ResultSet rs = pstm.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 User user = new User();
                 user.setUserID(rs.getInt("userID"));
                 user.setName(name);
-                user.setPassword(password);
                 user.setAddress(rs.getString("address"));
                 user.setAge(rs.getInt("age"));
                 return user;
@@ -134,4 +133,26 @@ public enum UserDAO {
     }
 
 
+    public User findUser(String name, int age, String address) {
+        String sql = "select a.password from user a where a.name = ? and a.age = ? and a.address = ?";
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, name);
+            pstm.setInt(2, age);
+            pstm.setString(3, address);
+
+            ResultSet rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

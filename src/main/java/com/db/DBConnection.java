@@ -14,7 +14,7 @@ public class DBConnection {
     private static DBConnection dbConnection;
 
 
-    public static  DBConnection getInstance() {
+    public static DBConnection getInstance() {
         if (dbConnection == null) {
             dbConnection = new DBConnection();
             return dbConnection;
@@ -40,7 +40,6 @@ public class DBConnection {
     public Connection getConnection() {
         return connection;
     }
-
 
 
 }

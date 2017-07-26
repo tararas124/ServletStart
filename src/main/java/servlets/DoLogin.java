@@ -38,7 +38,7 @@ public class DoLogin extends HttpServlet {
         if (name == null || password == null
                 || name.length() == 0 || password.length() == 0) {
             error = true;
-            errorMsg = "Required username and password!";
+            resp.sendError(400);
         } else {
             user = UserDAO.INSTANCE.findUser(name, password);
 
@@ -56,7 +56,7 @@ public class DoLogin extends HttpServlet {
             req.setAttribute("errorString", errorMsg);
             req.setAttribute("user", user);
 
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login");
             dispatcher.forward(req, resp);
         } else {
             HttpSession session = req.getSession();

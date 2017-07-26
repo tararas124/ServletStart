@@ -6,7 +6,8 @@ public class Item {
     private int state;
     private int userID;
 
-    public Item(){}
+    public Item() {
+    }
 
     public Item(String text, int state, int userID) {
         this.text = text;
